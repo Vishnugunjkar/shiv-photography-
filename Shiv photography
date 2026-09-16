@@ -1,4 +1,4 @@
-index.html <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mr">
 <head>
 <meta charset="UTF-8">
@@ -181,71 +181,72 @@ footer strong{
   }
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
-  <div class="logo">SHIV PHOTOGRAPHY</div>
-  <div class="tagline">Shiv Royal Photography</div>
+<div class="logo">SHIV PHOTOGRAPHY</div>
+<div class="tagline">Shiv Royal Photography</div>
 </header>
 
 <section class="hero">
 
-  <h1>Find Your <span class="gold">Photos</span></h1>
+<h1>Find Your <span class="gold">Photos</span></h1>
 
-  <p>
-    तुमचा selfie किंवा photo upload करा आणि
-    तुमचे event मधील photos शोधा.
-  </p>
+<p>
+तुमचा selfie किंवा photo upload करा आणि
+तुमचे event मधील photos शोधा.
+</p>
 
-  <div class="search-box">
+<div class="search-box">
 
-    <h2>📸 तुमचा फोटो निवडा</h2>
+<h2>📸 तुमचा फोटो निवडा</h2>
 
-    <p>
-      Clear face असलेला तुमचा photo निवडा.
-    </p>
+<p>
+Clear face असलेला तुमचा photo निवडा.
+</p>
 
-    <label class="upload">
-      Choose Your Photo
-      <input type="file" id="selfie" accept="image/*">
-    </label>
+<label class="upload">
+Choose Your Photo
+<input type="file" id="selfie" accept="image/*">
+</label>
 
-    <div class="preview" id="preview">
-      <img id="previewImg" src="" alt="Your Photo">
-    </div>
+<div class="preview" id="preview">
+<img id="previewImg" src="" alt="Your Photo">
+</div>
 
-    <button class="find-btn" id="findBtn">
-      🔍 Find My Photos
-    </button>
+<button class="find-btn" id="findBtn">
+🔍 Find My Photos
+</button>
 
-  </div>
+</div>
 
 </section>
 
 <section class="gallery">
 
-  <h2>Latest <span class="gold">Photography</span></h2>
+<h2>Latest <span class="gold">Photography</span></h2>
 
-  <div class="gallery-grid">
+<div class="gallery-grid">
 
-    <div class="photo">Photo 01</div>
-    <div class="photo">Photo 02</div>
-    <div class="photo">Photo 03</div>
-    <div class="photo">Photo 04</div>
-    <div class="photo">Photo 05</div>
-    <div class="photo">Photo 06</div>
-    <div class="photo">Photo 07</div>
-    <div class="photo">Photo 08</div>
+<div class="photo">Photo 01</div>
+<div class="photo">Photo 02</div>
+<div class="photo">Photo 03</div>
+<div class="photo">Photo 04</div>
+<div class="photo">Photo 05</div>
+<div class="photo">Photo 06</div>
+<div class="photo">Photo 07</div>
+<div class="photo">Photo 08</div>
 
-  </div>
+</div>
 
 </section>
 
 <footer>
-  © 2026 <strong>Shiv Royal Photography</strong><br>
-  All Rights Reserved
+© 2026 <strong>Shiv Royal Photography</strong><br>
+All Rights Reserved
 </footer>
 
 <script>
