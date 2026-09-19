@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shiv Photography | Shiv Royal Photography</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0b0b0b;
+  color:white;
+}
+
+header{
+  padding:22px 18px;
+  text-align:center;
+  background:linear-gradient(135deg,#111,#191919);
+  border-bottom:1px solid #333;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:bold;
+  color:#d4af37;
+  letter-spacing:1px;
+}
+
+.tagline{
+  margin-top:6px;
+  color:#aaa;
+  font-size:14px;
+}
+
+.hero{
+  padding:55px 20px;
+  text-align:center;
+  background:radial-gradient(circle at center,#29200b 0%,#0b0b0b 65%);
+}
+
+.hero h1{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:#bbb;
+  line-height:1.6;
+  max-width:600px;
+  margin:auto;
+}
+
+.gold{
+  color:#d4af37;
+}
+
+.search-box{
+  max-width:520px;
+  margin:30px auto 0;
+  padding:25px;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:18px;
+}
+
+.search-box h2{
+  margin-bottom:10px;
+}
+
+.search-box p{
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.upload{
+  display:block;
+  width:100%;
+  padding:16px;
+  background:#d4af37;
+  color:#111;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  border:none;
+  font-size:16px;
+}
+
+input[type="file"]{
+  display:none;
+}
+
+.preview{
+  display:none;
+  margin-top:20px;
+}
+
+.preview img{
+  width:140px;
+  height:140px;
+  object-fit:cover;
+  border-radius:12px;
+  border:2px solid #d4af37;
+}
+
+.find-btn{
+  display:none;
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  background:#222;
+  color:white;
+  border:1px solid #d4af37;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.gallery{
+  padding:35px 18px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.gallery h2{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.photo{
+  aspect-ratio:1/1;
+  background:#1b1b1b;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #292929;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#777;
+}
+
+footer{
+  margin-top:40px;
+  padding:30px 20px;
+  text-align:center;
+  background:#111;
+  color:#777;
+  font-size:13px;
+}
+
+footer strong{
+  color:#d4af37;
+}
+
+@media(min-width:700px){
+  .gallery-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .hero h1{
+    font-size:48px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="logo">SHIV PHOTOGRAPHY</div>
+  <div class="tagline">Shiv Royal Photography</div>
+</header>
+
+<section class="hero">
+
+  <h1>Find Your <span class="gold">Photos</span></h1>
+
+  <p>
+    तुमचा selfie किंवा photo upload करा आणि
+    तुमचे event मधील photos शोधा.
+  </p>
+
+  <div class="search-box">
+
+    <h2>📸 तुमचा फोटो निवडा</h2>
+
+    <p>
+      Clear face असलेला तुमचा photo निवडा.
+    </p>
+
+    <label class="upload">
+      Choose Your Photo
+      <input type="file" id="selfie" accept="image/*">
+    </label>
+
+    <div class="preview" id="preview">
+      <img id="previewImg" src="" alt="Your Photo">
+    </div>
+
+    <button class="find-btn" id="findBtn">
+      🔍 Find My Photos
+    </button>
+
+  </div>
+
+</section>
+
+<section class="gallery">
+
+  <h2>Latest <span class="gold">Photography</span></h2>
+
+  <div class="gallery-grid">
+
+    <div class="photo">Photo 01</div>
+    <div class="photo">Photo 02</div>
+    <div class="photo">Photo 03</div>
+    <div class="photo">Photo 04</div>
+    <div class="photo">Photo 05</div>
+    <div class="photo">Photo 06</div>
+    <div class="photo">Photo 07</div>
+    <div class="photo">Photo 08</div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 <strong>Shiv Royal Photography</strong><br>
+  All Rights Reserved
+</footer>
+
+<script>
+
+const selfie = document.getElementById("selfie");
+const preview = document.getElementById("preview");
+const previewImg = document.getElementById("previewImg");
+const findBtn = document.getElementById("findBtn");
+
+selfie.addEventListener("change", function(){
+
+  const file = this.files[0];
+
+  if(file){
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+      previewImg.src = e.target.result;
+
+      preview.style.display = "block";
+      findBtn.style.display = "block";
+
+    };
+
+    reader.readAsDataURL(file);
+
+  }
+
+});
+
+findBtn.addEventListener("click", function(){
+
+  alert(
+    "Photo received! Face matching system will be connected in the next version."
+  );
+
+});
+
+</script>
+
+</body>
+</html>
