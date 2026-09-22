@@ -8,277 +8,689 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-  background:#0b0b0b;
-  color:white;
+    background:#0b0b0b;
+    color:white;
 }
 
 header{
-  padding:22px 18px;
-  text-align:center;
-  background:linear-gradient(135deg,#111,#191919);
-  border-bottom:1px solid #333;
+    padding:25px 15px;
+    text-align:center;
+    background:linear-gradient(135deg,#111,#191919);
+    border-bottom:1px solid #333;
 }
 
 .logo{
-  font-size:30px;
-  font-weight:bold;
-  color:#d4af37;
-  letter-spacing:1px;
+    font-size:30px;
+    font-weight:bold;
+    color:#d4af37;
+    letter-spacing:2px;
 }
 
-.tagline{
-  margin-top:6px;
-  color:#aaa;
-  font-size:14px;
+.brand{
+    margin-top:6px;
+    color:#ccc;
+    font-size:14px;
+}
+
+.container{
+    width:92%;
+    max-width:900px;
+    margin:auto;
 }
 
 .hero{
-  padding:55px 20px;
-  text-align:center;
-  background:radial-gradient(circle at center,#29200b 0%,#0b0b0b 65%);
+    text-align:center;
+    padding:45px 10px 30px;
 }
 
 .hero h1{
-  font-size:34px;
-  margin-bottom:12px;
+    color:#d4af37;
+    font-size:28px;
+    margin-bottom:12px;
 }
 
 .hero p{
-  color:#bbb;
-  line-height:1.6;
-  max-width:600px;
-  margin:auto;
+    color:#ccc;
+    line-height:1.6;
 }
 
-.gold{
-  color:#d4af37;
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:13px 22px;
+    border:none;
+    border-radius:8px;
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.search-box{
-  max-width:520px;
-  margin:30px auto 0;
-  padding:25px;
-  background:#151515;
-  border:1px solid #333;
-  border-radius:18px;
+.btn:hover{
+    opacity:.9;
 }
 
-.search-box h2{
-  margin-bottom:10px;
+.section{
+    margin-top:30px;
+    padding:25px;
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:12px;
 }
 
-.search-box p{
-  font-size:14px;
-  margin-bottom:20px;
+.section h2{
+    color:#d4af37;
+    margin-bottom:18px;
 }
 
-.upload{
-  display:block;
-  width:100%;
-  padding:16px;
-  background:#d4af37;
-  color:#111;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-  border:none;
-  font-size:16px;
+input{
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    border-radius:7px;
+    border:1px solid #444;
+    background:#0d0d0d;
+    color:white;
 }
 
-input[type="file"]{
-  display:none;
+.hidden{
+    display:none;
 }
 
-.preview{
-  display:none;
-  margin-top:20px;
-}
-
-.preview img{
-  width:140px;
-  height:140px;
-  object-fit:cover;
-  border-radius:12px;
-  border:2px solid #d4af37;
-}
-
-.find-btn{
-  display:none;
-  width:100%;
-  margin-top:15px;
-  padding:14px;
-  background:#222;
-  color:white;
-  border:1px solid #d4af37;
-  border-radius:10px;
-  font-size:16px;
-  cursor:pointer;
+.message{
+    margin-top:12px;
+    padding:10px;
+    border-radius:6px;
+    background:#202020;
+    color:#ddd;
+    font-size:14px;
 }
 
 .gallery{
-  padding:35px 18px;
-  max-width:1100px;
-  margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;
+    margin-top:20px;
 }
 
-.gallery h2{
-  text-align:center;
-  margin-bottom:25px;
+.photo-card{
+    background:#111;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid #292929;
 }
 
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+.photo-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
 }
 
-.photo{
-  aspect-ratio:1/1;
-  background:#1b1b1b;
-  border-radius:12px;
-  overflow:hidden;
-  border:1px solid #292929;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
+.photo-name{
+    padding:8px;
+    font-size:12px;
+    color:#bbb;
+    word-break:break-word;
 }
 
 footer{
-  margin-top:40px;
-  padding:30px 20px;
-  text-align:center;
-  background:#111;
-  color:#777;
-  font-size:13px;
+    text-align:center;
+    padding:30px 10px;
+    margin-top:40px;
+    color:#777;
+    border-top:1px solid #222;
+    font-size:13px;
 }
 
-footer strong{
-  color:#d4af37;
+.small{
+    color:#888;
+    font-size:13px;
+    margin-top:8px;
+    line-height:1.5;
 }
 
-@media(min-width:700px){
-  .gallery-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .hero h1{
-    font-size:48px;
-  }
+.loading{
+    text-align:center;
+    color:#aaa;
+    padding:20px;
 }
 </style>
-
 </head>
 
 <body>
 
 <header>
-  <div class="logo">SHIV PHOTOGRAPHY</div>
-  <div class="tagline">Shiv Royal Photography</div>
+    <div class="logo">SHIV PHOTOGRAPHY</div>
+    <div class="brand">Shiv Royal Photography</div>
 </header>
 
-<section class="hero">
+<div class="container">
 
-  <h1>Find Your <span class="gold">Photos</span></h1>
+    <section class="hero">
+        <h1>Find Your Photos</h1>
 
-  <p>
-    तुमचा selfie किंवा photo upload करा आणि
-    तुमचे event मधील photos शोधा.
-  </p>
+        <p>
+            तुमचे सुंदर क्षण शोधा आणि तुमचे फोटो मिळवा.
+        </p>
 
-  <div class="search-box">
+        <button class="btn" onclick="scrollToGallery()">
+            View Photos
+        </button>
+    </section>
 
-    <h2>📸 तुमचा फोटो निवडा</h2>
 
-    <p>
-      Clear face असलेला तुमचा photo निवडा.
-    </p>
+    <!-- PHOTOGRAPHER LOGIN -->
 
-    <label class="upload">
-      Choose Your Photo
-      <input type="file" id="selfie" accept="image/*">
-    </label>
+    <section class="section" id="loginSection">
 
-    <div class="preview" id="preview">
-      <img id="previewImg" src="" alt="Your Photo">
-    </div>
+        <h2>📸 Photographer Login</h2>
 
-    <button class="find-btn" id="findBtn">
-      🔍 Find My Photos
-    </button>
+        <input
+            type="email"
+            id="email"
+            placeholder="Photographer Email"
+        >
 
-  </div>
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
 
-</section>
+        <button class="btn" onclick="login()">
+            Login
+        </button>
 
-<section class="gallery">
+        <div id="loginMessage" class="message hidden"></div>
 
-  <h2>Latest <span class="gold">Photography</span></h2>
+        <p class="small">
+            फक्त photographer account मधूनच फोटो upload करता येतील.
+        </p>
 
-  <div class="gallery-grid">
+    </section>
 
-    <div class="photo">Photo 01</div>
-    <div class="photo">Photo 02</div>
-    <div class="photo">Photo 03</div>
-    <div class="photo">Photo 04</div>
-    <div class="photo">Photo 05</div>
-    <div class="photo">Photo 06</div>
-    <div class="photo">Photo 07</div>
-    <div class="photo">Photo 08</div>
 
-  </div>
+    <!-- PHOTOGRAPHER PANEL -->
 
-</section>
+    <section class="section hidden" id="photographerPanel">
+
+        <h2>📤 Upload Photos</h2>
+
+        <p class="small">
+            Photographer म्हणून login झाले आहे.
+            खाली फोटो select करून upload करा.
+        </p>
+
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            multiple
+        >
+
+        <button class="btn" onclick="uploadPhotos()">
+            Upload Photos
+        </button>
+
+        <button
+            class="btn"
+            onclick="logout()"
+            style="background:#333;color:white;margin-left:5px;"
+        >
+            Logout
+        </button>
+
+        <div id="uploadMessage" class="message hidden"></div>
+
+    </section>
+
+
+    <!-- GALLERY -->
+
+    <section class="section" id="gallerySection">
+
+        <h2>Latest Photography</h2>
+
+        <div id="gallery" class="gallery">
+
+            <div class="loading">
+                Photos loading...
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
 
 <footer>
-  © 2026 <strong>Shiv Royal Photography</strong><br>
-  All Rights Reserved
+    © 2026 Shiv Royal Photography
 </footer>
+
+
+<!-- SUPABASE LIBRARY -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-const selfie = document.getElementById("selfie");
-const preview = document.getElementById("preview");
-const previewImg = document.getElementById("previewImg");
-const findBtn = document.getElementById("findBtn");
+/* =====================================================
+   SUPABASE SETTINGS
 
-selfie.addEventListener("change", function(){
+   इथे नंतर तुझा Supabase URL आणि Publishable Key टाकायचा.
+   ===================================================== */
 
-  const file = this.files[0];
+const SUPABASE_URL = "https://zisiwkwcypflnljwygmd.supabase.co";
 
-  if(file){
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_abv5TbycBnElMpVk0K5mPA_4NmG4oXj";
 
-    const reader = new FileReader();
 
-    reader.onload = function(e){
+/* =====================================================
+   SUPABASE CLIENT
+   ===================================================== */
 
-      previewImg.src = e.target.result;
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-      preview.style.display = "block";
-      findBtn.style.display = "block";
 
-    };
+/* =====================================================
+   HTML ELEMENTS
+   ===================================================== */
 
-    reader.readAsDataURL(file);
+const loginSection =
+    document.getElementById("loginSection");
 
-  }
+const photographerPanel =
+    document.getElementById("photographerPanel");
 
-});
+const loginMessage =
+    document.getElementById("loginMessage");
 
-findBtn.addEventListener("click", function(){
+const uploadMessage =
+    document.getElementById("uploadMessage");
 
-  alert(
-    "Photo received! Face matching system will be connected in the next version."
-  );
+const gallery =
+    document.getElementById("gallery");
 
-});
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showMessage(element, text){
+
+    element.textContent = text;
+
+    element.classList.remove("hidden");
+}
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+async function login(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    if(!email || !password){
+
+        showMessage(
+            loginMessage,
+            "कृपया email आणि password भरा."
+        );
+
+        return;
+    }
+
+    showMessage(
+        loginMessage,
+        "Login होत आहे..."
+    );
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+    if(error){
+
+        showMessage(
+            loginMessage,
+            "Login failed: " + error.message
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        loginMessage,
+        "Login successful! ✅"
+    );
+
+
+    showPhotographerPanel();
+}
+
+
+/* =====================================================
+   SHOW PHOTOGRAPHER PANEL
+   ===================================================== */
+
+function showPhotographerPanel(){
+
+    photographerPanel.classList.remove("hidden");
+
+    loginSection.classList.add("hidden");
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    photographerPanel.classList.add("hidden");
+
+    loginSection.classList.remove("hidden");
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("password").value = "";
+
+    showMessage(
+        loginMessage,
+        "Logout successful."
+    );
+}
+
+
+/* =====================================================
+   UPLOAD PHOTOS
+   ===================================================== */
+
+async function uploadPhotos(){
+
+    const input =
+        document.getElementById("photoInput");
+
+    const files =
+        input.files;
+
+
+    if(!files || files.length === 0){
+
+        showMessage(
+            uploadMessage,
+            "कृपया फोटो select करा."
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        uploadMessage,
+        "Photos upload होत आहेत..."
+    );
+
+
+    let uploaded = 0;
+
+
+    for(const file of files){
+
+        if(!file.type.startsWith("image/")){
+
+            continue;
+        }
+
+
+        /* Maximum 6 MB */
+
+        if(file.size > 6 * 1024 * 1024){
+
+            continue;
+        }
+
+
+        const extension =
+            file.name.split(".").pop();
+
+
+        const fileName =
+            Date.now() +
+            "_" +
+            Math.random()
+                .toString(36)
+                .substring(2,10) +
+            "." +
+            extension;
+
+
+        const { error } =
+            await supabaseClient
+                .storage
+                .from("event-photos")
+                .upload(
+                    fileName,
+                    file,
+                    {
+                        contentType:file.type,
+                        upsert:false
+                    }
+                );
+
+
+        if(!error){
+
+            uploaded++;
+        }
+    }
+
+
+    if(uploaded > 0){
+
+        showMessage(
+            uploadMessage,
+            uploaded +
+            " photo(s) successfully uploaded! ✅"
+        );
+
+        input.value = "";
+
+        loadGallery();
+
+    }else{
+
+        showMessage(
+            uploadMessage,
+            "Photo upload झाला नाही. Supabase policy तपासा."
+        );
+    }
+}
+
+
+/* =====================================================
+   LOAD GALLERY
+   ===================================================== */
+
+async function loadGallery(){
+
+    gallery.innerHTML =
+        '<div class="loading">Photos loading...</div>';
+
+
+    const { data, error } =
+        await supabaseClient
+            .storage
+            .from("event-photos")
+            .list(
+                "",
+                {
+                    limit:100,
+
+                    sortBy:{
+                        column:"name",
+                        order:"desc"
+                    }
+                }
+            );
+
+
+    if(error){
+
+        gallery.innerHTML =
+            '<div class="loading">Gallery load झाली नाही.</div>';
+
+        console.log(error);
+
+        return;
+    }
+
+
+    const files =
+        data.filter(
+            file =>
+                file.name &&
+                !file.name.endsWith("/")
+        );
+
+
+    if(files.length === 0){
+
+        gallery.innerHTML =
+            '<div class="loading">अजून कोणतेही फोटो upload झालेले नाहीत.</div>';
+
+        return;
+    }
+
+
+    gallery.innerHTML = "";
+
+
+    files.forEach(file => {
+
+        const { data:urlData } =
+            supabaseClient
+                .storage
+                .from("event-photos")
+                .getPublicUrl(file.name);
+
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "photo-card";
+
+
+        card.innerHTML = `
+
+            <img
+                src="${urlData.publicUrl}"
+                alt="Photography"
+                loading="lazy"
+            >
+
+            <div class="photo-name">
+                ${file.name}
+            </div>
+
+        `;
+
+
+        gallery.appendChild(card);
+
+    });
+}
+
+
+/* =====================================================
+   SCROLL TO GALLERY
+   ===================================================== */
+
+function scrollToGallery(){
+
+    document
+        .getElementById("gallerySection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+}
+
+
+/* =====================================================
+   CHECK EXISTING LOGIN
+   ===================================================== */
+
+async function checkLogin(){
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+
+    if(data.session){
+
+        showPhotographerPanel();
+    }
+}
+
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+
+        if(session){
+
+            showPhotographerPanel();
+
+        }else{
+
+            photographerPanel.classList.add("hidden");
+
+            loginSection.classList.remove("hidden");
+        }
+    }
+);
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+checkLogin();
+
+loadGallery();
 
 </script>
 
