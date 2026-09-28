@@ -1,120 +1,298 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Shiv Photography | Shiv Royal Photography</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0b0b0b;color:white}
-header{padding:25px 15px;text-align:center;background:linear-gradient(135deg,#111,#191919);border-bottom:1px solid #333}
-.logo{font-size:30px;font-weight:bold;color:#d4af37;letter-spacing:2px}
-.brand{margin-top:6px;color:#ccc;font-size:14px}
-.container{width:92%;max-width:900px;margin:auto}
-.hero{text-align:center;padding:45px 10px 30px}
-.hero h1{color:#d4af37;font-size:28px;margin-bottom:12px}
-.hero p{color:#ccc;line-height:1.6}
-.btn{display:inline-block;margin-top:20px;padding:13px 22px;border:none;border-radius:8px;background:#d4af37;color:#111;font-weight:bold;cursor:pointer}
-.btn:hover{opacity:.9}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.section{margin-top:30px;padding:25px;background:#151515;border:1px solid #292929;border-radius:12px}
-.section h2{color:#d4af37;margin-bottom:18px}
-input{width:100%;padding:13px;margin:8px 0;border-radius:7px;border:1px solid #444;background:#0d0d0d;color:white}
-.hidden{display:none}
-.message{margin-top:12px;padding:10px;border-radius:6px;background:#202020;color:#ddd;font-size:14px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
-.photo-card{background:#111;border-radius:8px;overflow:hidden;border:1px solid #292929}
-.photo-card img{width:100%;height:180px;object-fit:cover;display:block}
-.photo-name{padding:8px;font-size:12px;color:#bbb;word-break:break-word}
-.match-badge{padding:8px;color:#d4af37;font-size:12px}
-footer{text-align:center;padding:30px 10px;margin-top:40px;color:#777;border-top:1px solid #222;font-size:13px}
-.small{color:#888;font-size:13px;margin-top:8px;line-height:1.5}
-.loading{text-align:center;color:#aaa;padding:20px}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0b0b0b;
+    color:white;
+}
+
+header{
+    padding:25px 20px;
+    text-align:center;
+    background:#111;
+    border-bottom:1px solid #333;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:#d4af37;
+}
+
+.subtitle{
+    margin-top:6px;
+    color:#aaa;
+}
+
+.hero{
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px 20px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:#aaa;
+    margin-bottom:25px;
+    max-width:600px;
+    line-height:1.6;
+}
+
+.btn{
+    border:none;
+    padding:13px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    margin:5px;
+}
+
+.btn-gold{
+    background:#d4af37;
+    color:#111;
+}
+
+.btn-dark{
+    background:#333;
+    color:white;
+}
+
+.btn-danger{
+    background:#b3261e;
+    color:white;
+}
+
+.section{
+    padding:40px 20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.section h2{
+    margin-bottom:25px;
+    color:#d4af37;
+}
+
+.card{
+    background:#151515;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+input[type="file"]{
+    width:100%;
+    padding:12px;
+    background:#222;
+    color:white;
+    border-radius:8px;
+    border:1px solid #444;
+    margin-bottom:15px;
+}
+
+input[type="email"],
+input[type="password"]{
+    width:100%;
+    padding:12px;
+    background:#222;
+    color:white;
+    border:1px solid #444;
+    border-radius:8px;
+    margin-bottom:12px;
+}
+
+.status{
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    background:#202020;
+    color:#ddd;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.loading{
+    color:#aaa;
+    padding:20px;
+    text-align:center;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.photo-card{
+    background:#151515;
+    border:1px solid #333;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.photo-card img{
+    width:100%;
+    display:block;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.photo-info{
+    padding:10px;
+}
+
+.photo-name{
+    font-size:12px;
+    color:#aaa;
+    word-break:break-all;
+    margin-bottom:8px;
+}
+
+.match-result{
+    margin-top:25px;
+}
+
+.match-result img{
+    width:100%;
+    max-width:350px;
+    border-radius:10px;
+    display:block;
+    margin:auto;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#777;
+    border-top:1px solid #222;
+    margin-top:40px;
+}
+
+@media(max-width:600px){
+    .hero h1{
+        font-size:30px;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">SHIV PHOTOGRAPHY</div>
-<div class="brand">Shiv Royal Photography</div>
+    <div class="logo">SHIV PHOTOGRAPHY</div>
+    <div class="subtitle">Shiv Royal Photography</div>
 </header>
 
-<div class="container">
-
 <section class="hero">
-<h1>Find Your Photos</h1>
-<p>तुमचे सुंदर क्षण शोधा आणि तुमचे फोटो मिळवा.</p>
 
-<button class="btn" onclick="scrollToFinder()">
-Find My Photos
-</button>
+    <h1>Find Your Photos</h1>
 
-<button class="btn" onclick="scrollToGallery()" style="background:#333;color:white;margin-left:5px;">
-View Photos
-</button>
+    <p>
+        तुमचे सुंदर क्षण शोधा ❤️
+        तुमचा selfie upload करा आणि तुमचे photos शोधा.
+    </p>
+
+    <button class="btn btn-gold" onclick="document.getElementById('selfieSection').scrollIntoView({behavior:'smooth'})">
+        Find My Photos
+    </button>
+
+    <button class="btn btn-dark" onclick="showLogin()">
+        Photographer Login
+    </button>
+
 </section>
 
 
-<!-- FIND YOUR PHOTOS -->
+<!-- SELFIE SEARCH -->
 
-<section class="section" id="finderSection">
+<section class="section" id="selfieSection">
 
-<h2>🔎 Find Your Photos</h2>
+    <div class="card">
 
-<p class="small">
-तुमचा selfie निवडा. Selfie आणि event photos ची face matching तुमच्या browser मध्येच होईल.
-</p>
+        <h2>Find Your Photos</h2>
 
-<input
-type="file"
-id="selfieInput"
-accept="image/*"
->
+        <p style="color:#aaa;margin-bottom:20px;">
+            तुमचा selfie upload करा.
+        </p>
 
-<button
-class="btn"
-id="findButton"
-onclick="findMyPhotos()"
->
-Find My Photos
-</button>
+        <input
+            type="file"
+            id="selfieInput"
+            accept="image/*"
+            capture="user"
+        >
 
-<div id="finderMessage" class="message hidden"></div>
+        <button class="btn btn-gold" onclick="findMyPhotos()">
+            Search Photos
+        </button>
 
-<div id="matchResults" class="gallery"></div>
+        <div id="matchStatus" class="status hidden"></div>
+
+    </div>
+
+    <div id="matchResults" class="match-result"></div>
 
 </section>
 
 
 <!-- PHOTOGRAPHER LOGIN -->
 
-<section class="section" id="loginSection">
+<section class="section hidden" id="loginSection">
 
-<h2>📸 Photographer Login</h2>
+    <div class="card">
 
-<input
-type="email"
-id="email"
-placeholder="Photographer Email"
->
+        <h2>Photographer Login</h2>
 
-<input
-type="password"
-id="password"
-placeholder="Password"
->
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email"
+        >
 
-<button class="btn" onclick="login()">
-Login
-</button>
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+        >
 
-<div id="loginMessage" class="message hidden"></div>
+        <button class="btn btn-gold" onclick="loginPhotographer()">
+            Login
+        </button>
 
-<p class="small">
-फक्त photographer account मधूनच फोटो upload करता येतील.
-</p>
+        <button class="btn btn-dark" onclick="hideLogin()">
+            Cancel
+        </button>
+
+        <div id="loginStatus" class="status hidden"></div>
+
+    </div>
 
 </section>
 
@@ -123,683 +301,841 @@ Login
 
 <section class="section hidden" id="photographerPanel">
 
-<h2>📤 Upload Photos</h2>
+    <div class="card">
 
-<p class="small">
-Photographer म्हणून login झाले आहे.
-खाली फोटो select करून upload करा.
-</p>
+        <h2>Photographer Panel</h2>
 
-<input
-type="file"
-id="photoInput"
-accept="image/*"
-multiple
->
+        <p id="loggedUser" style="color:#aaa;margin-bottom:20px;"></p>
 
-<button class="btn" onclick="uploadPhotos()">
-Upload Photos
-</button>
+        <h3 style="margin-bottom:15px;">
+            Upload Photos
+        </h3>
 
-<button
-class="btn"
-onclick="logout()"
-style="background:#333;color:white;margin-left:5px;"
->
-Logout
-</button>
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            multiple
+        >
 
-<div id="uploadMessage" class="message hidden"></div>
+        <button class="btn btn-gold" onclick="uploadPhotos()">
+            Upload Photos
+        </button>
+
+        <button class="btn btn-dark" onclick="loadPhotographerPhotos()">
+            Manage Photos
+        </button>
+
+        <button class="btn btn-dark" onclick="logoutPhotographer()">
+            Logout
+        </button>
+
+        <div id="uploadStatus" class="status hidden"></div>
+
+    </div>
+
+
+    <!-- MANAGE PHOTOS -->
+
+    <div class="card">
+
+        <h2>Manage Photos</h2>
+
+        <div id="managementGallery" class="gallery">
+
+            <div class="loading">
+                Manage Photos button दाबा.
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-
-<!-- GALLERY -->
-
-<section class="section" id="gallerySection">
-
-<h2>Latest Photography</h2>
-
-<div id="gallery" class="gallery">
-
-<div class="loading">
-Photos loading...
-</div>
-
-</div>
-
-</section>
-
-</div>
 
 <footer>
-© 2026 Shiv Royal Photography
+    © 2026 Shiv Photography | Shiv Royal Photography
 </footer>
-
-
-<!-- FACE API -->
-
-<script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/face-api.js"></script>
-
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
 
+/* ==============================
+   SUPABASE
+================================ */
+
 const SUPABASE_URL =
 "https://zisiwkwcypflnljwygmd.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
 "sb_publishable_abv5TbycBnElMpVk0K5mPA_4NmG4oXj";
 
-const MODEL_URL =
-"https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/model";
-
-const MATCH_DISTANCE = 0.52;
-
 const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
-const loginSection =
-document.getElementById("loginSection");
 
-const photographerPanel =
-document.getElementById("photographerPanel");
+/* ==============================
+   ELEMENTS
+================================ */
 
-const loginMessage =
-document.getElementById("loginMessage");
+const selfieInput =
+document.getElementById("selfieInput");
 
-const uploadMessage =
-document.getElementById("uploadMessage");
-
-const finderMessage =
-document.getElementById("finderMessage");
-
-const gallery =
-document.getElementById("gallery");
+const matchStatus =
+document.getElementById("matchStatus");
 
 const matchResults =
 document.getElementById("matchResults");
 
-const findButton =
-document.getElementById("findButton");
+const managementGallery =
+document.getElementById("managementGallery");
 
 
-function showMessage(element,text){
-element.textContent = text;
-element.classList.remove("hidden");
+/* ==============================
+   LOGIN UI
+================================ */
+
+function showLogin(){
+
+    document
+    .getElementById("loginSection")
+    .classList.remove("hidden");
+
+    document
+    .getElementById("loginSection")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
 }
 
 
-function scrollToFinder(){
-document
-.getElementById("finderSection")
-.scrollIntoView({behavior:"smooth"});
-}
+function hideLogin(){
 
-
-function scrollToGallery(){
-document
-.getElementById("gallerySection")
-.scrollIntoView({behavior:"smooth"});
-}
-
-
-async function login(){
-
-const email =
-document.getElementById("email").value.trim();
-
-const password =
-document.getElementById("password").value;
-
-if(!email || !password){
-
-showMessage(
-loginMessage,
-"कृपया email आणि password भरा."
-);
-
-return;
-}
-
-showMessage(
-loginMessage,
-"Login होत आहे..."
-);
-
-const {error} =
-await supabaseClient.auth.signInWithPassword({
-email:email,
-password:password
-});
-
-if(error){
-
-showMessage(
-loginMessage,
-"Login failed: " + error.message
-);
-
-return;
-}
-
-showMessage(
-loginMessage,
-"Login successful! ✅"
-);
-
-showPhotographerPanel();
-}
-
-
-function showPhotographerPanel(){
-
-photographerPanel.classList.remove("hidden");
-loginSection.classList.add("hidden");
+    document
+    .getElementById("loginSection")
+    .classList.add("hidden");
 
 }
 
 
-async function logout(){
+/* ==============================
+   LOGIN
+================================ */
 
-await supabaseClient.auth.signOut();
+async function loginPhotographer(){
 
-photographerPanel.classList.add("hidden");
-loginSection.classList.remove("hidden");
+    const email =
+    document.getElementById("loginEmail").value.trim();
 
-document.getElementById("email").value = "";
-document.getElementById("password").value = "";
+    const password =
+    document.getElementById("loginPassword").value;
 
-showMessage(
-loginMessage,
-"Logout successful."
-);
+    const status =
+    document.getElementById("loginStatus");
+
+    status.classList.remove("hidden");
+
+    status.innerText =
+    "Logging in...";
+
+
+    const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+        email:email,
+        password:password
+    });
+
+
+    if(error){
+
+        status.innerText =
+        "Login failed: " + error.message;
+
+        return;
+    }
+
+
+    status.innerText =
+    "Login successful!";
+
+
+    document
+    .getElementById("loginSection")
+    .classList.add("hidden");
+
+
+    document
+    .getElementById("photographerPanel")
+    .classList.remove("hidden");
+
+
+    document
+    .getElementById("loggedUser")
+    .innerText =
+    "Logged in as: " + data.user.email;
+
+
+    loadPhotographerPhotos();
 }
 
+
+/* ==============================
+   LOGOUT
+================================ */
+
+async function logoutPhotographer(){
+
+    await supabaseClient.auth.signOut();
+
+    document
+    .getElementById("photographerPanel")
+    .classList.add("hidden");
+
+    managementGallery.innerHTML = "";
+
+}
+
+
+/* ==============================
+   CHECK LOGIN
+================================ */
+
+async function checkLogin(){
+
+    const { data } =
+    await supabaseClient.auth.getSession();
+
+    if(data.session){
+
+        document
+        .getElementById("photographerPanel")
+        .classList.remove("hidden");
+
+        document
+        .getElementById("loggedUser")
+        .innerText =
+        "Logged in as: " +
+        data.session.user.email;
+
+        loadPhotographerPhotos();
+    }
+}
+
+
+/* ==============================
+   UPLOAD PHOTOS
+================================ */
 
 async function uploadPhotos(){
 
-const input =
-document.getElementById("photoInput");
+    const input =
+    document.getElementById("photoInput");
 
-const files =
-input.files;
+    const status =
+    document.getElementById("uploadStatus");
 
-if(!files || files.length === 0){
+    if(!input.files.length){
 
-showMessage(
-uploadMessage,
-"कृपया फोटो select करा."
-);
+        status.classList.remove("hidden");
 
-return;
-}
+        status.innerText =
+        "Please select photos.";
 
-showMessage(
-uploadMessage,
-"Photos upload होत आहेत..."
-);
-
-let uploaded = 0;
-
-for(const file of files){
-
-if(!file.type.startsWith("image/")){
-continue;
-}
-
-if(file.size > 6 * 1024 * 1024){
-continue;
-}
-
-const extension =
-file.name.split(".").pop();
-
-const fileName =
-Date.now() +
-"_" +
-Math.random().toString(36).substring(2,10) +
-"." +
-extension;
-
-const {error} =
-await supabaseClient
-.storage
-.from("event-photos")
-.upload(
-fileName,
-file,
-{
-contentType:file.type,
-upsert:false
-}
-);
-
-if(!error){
-uploaded++;
-}
-}
-
-if(uploaded > 0){
-
-showMessage(
-uploadMessage,
-uploaded +
-" photo(s) successfully uploaded! ✅"
-);
-
-input.value = "";
-
-loadGallery();
-
-}else{
-
-showMessage(
-uploadMessage,
-"Photo upload झाला नाही. Supabase policy किंवा 6 MB limit तपासा."
-);
-}
-
-}
+        return;
+    }
 
 
-async function listEventPhotos(){
+    const {
+        data:{session}
+    } =
+    await supabaseClient.auth.getSession();
 
-const {data,error} =
-await supabaseClient
-.storage
-.from("event-photos")
-.list(
-"",
-{
-limit:100,
-sortBy:{
-column:"name",
-order:"desc"
-}
-}
-);
 
-if(error){
-throw error;
-}
+    if(!session){
 
-return data.filter(
-file =>
-file.name &&
-!file.name.endsWith("/")
-);
+        status.classList.remove("hidden");
+
+        status.innerText =
+        "Please login first.";
+
+        return;
+    }
+
+
+    status.classList.remove("hidden");
+
+    status.innerText =
+    "Uploading photos...";
+
+
+    let successCount = 0;
+
+
+    for(const file of input.files){
+
+        const fileName =
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2,10) +
+        "_" +
+        file.name;
+
+
+        const { error } =
+        await supabaseClient
+        .storage
+        .from("event-photos")
+        .upload(
+            fileName,
+            file
+        );
+
+
+        if(error){
+
+            console.error(
+                "Upload error:",
+                error
+            );
+
+        }else{
+
+            successCount++;
+
+        }
+
+    }
+
+
+    status.innerText =
+    successCount +
+    " photo(s) successfully uploaded!";
+
+
+    input.value = "";
+
+
+    loadPhotographerPhotos();
 }
 
 
-function publicUrl(name){
+/* ==============================
+   TEMPORARY SIGNED URL
+================================ */
 
-return supabaseClient
-.storage
-.from("event-photos")
-.getPublicUrl(name)
-.data.publicUrl;
+async function getTemporaryUrl(fileName){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .storage
+    .from("event-photos")
+    .createSignedUrl(
+        fileName,
+        300
+    );
+
+
+    if(error){
+
+        console.error(
+            "Signed URL error:",
+            error
+        );
+
+        return null;
+    }
+
+
+    return data.signedUrl;
 }
 
 
-async function loadGallery(){
+/* ==============================
+   LOAD PHOTOGRAPHER PHOTOS
+================================ */
 
-gallery.innerHTML =
-'<div class="loading">Photos loading...</div>';
+async function loadPhotographerPhotos(){
 
-try{
+    managementGallery.innerHTML =
+    '<div class="loading">Loading photos...</div>';
 
-const files =
-await listEventPhotos();
 
-if(files.length === 0){
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .storage
+    .from("event-photos")
+    .list("",{
+        limit:1000,
+        sortBy:{
+            column:"created_at",
+            order:"desc"
+        }
+    });
 
-gallery.innerHTML =
-'<div class="loading">अजून कोणतेही फोटो upload झालेले नाहीत.</div>';
 
-return;
+    if(error){
+
+        managementGallery.innerHTML =
+        "<p>Could not load photos.</p>";
+
+        console.error(error);
+
+        return;
+    }
+
+
+    if(!data || data.length === 0){
+
+        managementGallery.innerHTML =
+        "<p style='color:#aaa'>No photos found.</p>";
+
+        return;
+    }
+
+
+    managementGallery.innerHTML = "";
+
+
+    for(const file of data){
+
+        const url =
+        await getTemporaryUrl(file.name);
+
+
+        if(!url) continue;
+
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+        "photo-card";
+
+
+        card.innerHTML = `
+
+            <img
+                src="${url}"
+                alt="Photography"
+            >
+
+            <div class="photo-info">
+
+                <div class="photo-name">
+                    ${escapeHtml(file.name)}
+                </div>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="deletePhoto('${encodeURIComponent(file.name)}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+        `;
+
+
+        managementGallery.appendChild(card);
+
+    }
+
 }
 
-gallery.innerHTML = "";
 
-files.forEach(file => {
+/* ==============================
+   DELETE PHOTO
+================================ */
 
-const card =
-document.createElement("div");
+async function deletePhoto(encodedName){
 
-card.className =
-"photo-card";
+    const fileName =
+    decodeURIComponent(encodedName);
 
-card.innerHTML =
-'<img src="' +
-publicUrl(file.name) +
-'" alt="Photography" loading="lazy">' +
 
-'<div class="photo-name">' +
-escapeHtml(file.name) +
-'</div>';
+    const confirmDelete =
+    confirm(
+        "हा photo delete करायचा आहे का?"
+    );
 
-gallery.appendChild(card);
 
-});
+    if(!confirmDelete) return;
 
-}catch(error){
 
-gallery.innerHTML =
-'<div class="loading">Gallery load झाली नाही.</div>';
+    const {
+        error
+    } =
+    await supabaseClient
+    .storage
+    .from("event-photos")
+    .remove([
+        fileName
+    ]);
 
-console.log(error);
+
+    if(error){
+
+        alert(
+            "Delete failed: " +
+            error.message
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+
+    alert(
+        "Photo successfully deleted!"
+    );
+
+
+    loadPhotographerPhotos();
 }
 
-}
 
+/* ==============================
+   ESCAPE HTML
+================================ */
 
 function escapeHtml(text){
 
-const div =
-document.createElement("div");
-
-div.textContent = text;
-
-return div.innerHTML;
+    return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
+
+/* ==============================
+   LOAD FACE API MODELS
+================================ */
 
 let modelsLoaded = false;
 
 
 async function loadFaceModels(){
 
-if(modelsLoaded){
-return;
+    if(modelsLoaded) return;
+
+
+    matchStatus.classList.remove("hidden");
+
+    matchStatus.innerText =
+    "Face recognition models loading...";
+
+
+    const MODEL_URL =
+    "https://justadudewhohacks.github.io/face-api.js/models";
+
+
+    await faceapi.nets.tinyFaceDetector.loadFromUri(
+        MODEL_URL
+    );
+
+    await faceapi.nets.faceLandmark68Net.loadFromUri(
+        MODEL_URL
+    );
+
+    await faceapi.nets.faceRecognitionNet.loadFromUri(
+        MODEL_URL
+    );
+
+
+    modelsLoaded = true;
+
 }
 
-showMessage(
-finderMessage,
-"Face matching models load होत आहेत... पहिल्यांदा थोडा वेळ लागू शकतो."
-);
 
-await Promise.all([
-
-faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-
-faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-
-faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
-
-]);
-
-modelsLoaded = true;
-}
-
+/* ==============================
+   IMAGE FROM URL
+================================ */
 
 async function imageFromUrl(url){
 
-return new Promise(
-(resolve,reject)=>{
+    return new Promise(
+        (resolve,reject)=>{
 
-const img =
-new Image();
+            const img =
+            new Image();
 
-img.crossOrigin =
-"anonymous";
+            img.crossOrigin =
+            "anonymous";
 
-img.onload = () =>
-resolve(img);
 
-img.onerror = () =>
-reject(new Error("image-load"));
+            img.onload =
+            () => resolve(img);
 
-img.src = url;
+
+            img.onerror =
+            () => reject(
+                new Error(
+                    "Image could not load"
+                )
+            );
+
+
+            img.src = url;
+
+        }
+    );
 
 }
-);
-}
 
 
-async function getDescriptorFromImage(input){
-
-const result =
-await faceapi
-.detectSingleFace(
-input,
-new faceapi.TinyFaceDetectorOptions({
-inputSize:416,
-scoreThreshold:0.5
-})
-)
-.withFaceLandmarks()
-.withFaceDescriptor();
-
-return result
-? result.descriptor
-: null;
-}
-
+/* ==============================
+   FIND MY PHOTOS
+================================ */
 
 async function findMyPhotos(){
 
-const input =
-document.getElementById("selfieInput");
+    const file =
+    selfieInput.files[0];
 
-const file =
-input.files &&
-input.files[0];
 
-matchResults.innerHTML = "";
+    if(!file){
 
-if(!file){
+        matchStatus.classList.remove("hidden");
 
-showMessage(
-finderMessage,
-"कृपया आधी selfie select करा."
-);
+        matchStatus.innerText =
+        "Please upload a selfie.";
 
-return;
+        return;
+    }
+
+
+    try{
+
+        matchResults.innerHTML = "";
+
+
+        matchStatus.classList.remove("hidden");
+
+        matchStatus.innerText =
+        "Preparing face recognition...";
+
+
+        await loadFaceModels();
+
+
+        const selfieImage =
+        await faceapi.bufferToImage(file);
+
+
+        const selfieDetection =
+        await faceapi
+        .detectSingleFace(
+            selfieImage,
+            new faceapi.TinyFaceDetectorOptions()
+        )
+        .withFaceLandmarks()
+        .withFaceDescriptor();
+
+
+        if(!selfieDetection){
+
+            matchStatus.innerText =
+            "Selfie मध्ये face सापडला नाही. कृपया clear selfie upload करा.";
+
+            return;
+        }
+
+
+        matchStatus.innerText =
+        "Searching your photos...";
+
+
+        const {
+            data:files,
+            error
+        } =
+        await supabaseClient
+        .storage
+        .from("event-photos")
+        .list("",{
+            limit:1000
+        });
+
+
+        if(error){
+
+            throw error;
+        }
+
+
+        const matches = [];
+
+
+        for(const file of files){
+
+            try{
+
+                const url =
+                await getTemporaryUrl(
+                    file.name
+                );
+
+
+                if(!url) continue;
+
+
+                const image =
+                await imageFromUrl(
+                    url
+                );
+
+
+                const detection =
+                await faceapi
+                .detectSingleFace(
+                    image,
+                    new faceapi.TinyFaceDetectorOptions()
+                )
+                .withFaceLandmarks()
+                .withFaceDescriptor();
+
+
+                if(!detection) continue;
+
+
+                const distance =
+                faceapi.euclideanDistance(
+                    selfieDetection.descriptor,
+                    detection.descriptor
+                );
+
+
+                /*
+                 Lower distance = better match.
+                 0.6 is a common starting threshold.
+                */
+
+                if(distance < 0.6){
+
+                    matches.push({
+                        file:file,
+                        distance:distance
+                    });
+
+                }
+
+            }catch(err){
+
+                console.log(
+                    "Skipping:",
+                    file.name
+                );
+
+            }
+
+        }
+
+
+        if(matches.length === 0){
+
+            matchStatus.innerText =
+            "तुमचा matching photo सापडला नाही.";
+
+            return;
+        }
+
+
+        matches.sort(
+            (a,b) =>
+            a.distance - b.distance
+        );
+
+
+        matchStatus.innerText =
+        matches.length +
+        " matching photo(s) सापडले!";
+
+
+        for(const match of matches){
+
+            const url =
+            await getTemporaryUrl(
+                match.file.name
+            );
+
+
+            if(!url) continue;
+
+
+            const card =
+            document.createElement("div");
+
+            card.className =
+            "photo-card";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${url}"
+                    alt="Your Photo"
+                >
+
+                <div class="photo-info">
+
+                    <div class="photo-name">
+                        Matching Photo
+                    </div>
+
+                    <a
+                        href="${url}"
+                        target="_blank"
+                        class="btn btn-gold"
+                        style="display:inline-block;text-decoration:none;"
+                    >
+                        View Photo
+                    </a>
+
+                </div>
+            `;
+
+
+            matchResults.appendChild(card);
+
+        }
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        matchStatus.classList.remove("hidden");
+
+        matchStatus.innerText =
+        "Something went wrong: " +
+        error.message;
+
+    }
+
 }
 
-if(!file.type.startsWith("image/")){
 
-showMessage(
-finderMessage,
-"कृपया image file निवडा."
-);
-
-return;
-}
-
-findButton.disabled = true;
-findButton.textContent = "Searching...";
-
-try{
-
-await loadFaceModels();
-
-const selfieImage =
-await faceapi.bufferToImage(file);
-
-const selfieDescriptor =
-await getDescriptorFromImage(selfieImage);
-
-if(!selfieDescriptor){
-
-showMessage(
-finderMessage,
-"Selfie मध्ये चेहरा स्पष्ट दिसला नाही. समोरून घेतलेला स्पष्ट फोटो वापर."
-);
-
-return;
-}
-
-showMessage(
-finderMessage,
-"Event photos तपासत आहोत..."
-);
-
-const files =
-await listEventPhotos();
-
-const matches = [];
-
-for(const file of files){
-
-try{
-
-const img =
-await imageFromUrl(
-publicUrl(file.name)
-);
-
-const descriptor =
-await getDescriptorFromImage(img);
-
-if(!descriptor){
-continue;
-}
-
-const distance =
-faceapi.euclideanDistance(
-selfieDescriptor,
-descriptor
-);
-
-if(distance <= MATCH_DISTANCE){
-
-matches.push({
-file:file,
-distance:distance
-});
-
-}
-
-}catch(error){
-
-console.log(
-"Skipped:",
-file.name,
-error
-);
-
-}
-
-}
-
-matches.sort(
-(a,b) =>
-a.distance - b.distance
-);
-
-if(matches.length === 0){
-
-matchResults.innerHTML =
-'<div class="loading">तुमच्याशी match होणारा फोटो सापडला नाही.</div>';
-
-showMessage(
-finderMessage,
-"Matching पूर्ण झाले."
-);
-
-return;
-}
-
-showMessage(
-finderMessage,
-matches.length +
-" matching photo(s) सापडले! ✅"
-);
-
-matches.forEach(match => {
-
-const card =
-document.createElement("div");
-
-card.className =
-"photo-card";
-
-const url =
-publicUrl(match.file.name);
-
-card.innerHTML =
-
-'<a href="' +
-url +
-'" target="_blank" rel="noopener">' +
-
-'<img src="' +
-url +
-'" alt="Matching Photography" loading="lazy">' +
-
-'</a>' +
-
-'<div class="photo-name">' +
-escapeHtml(match.file.name) +
-'</div>' +
-
-'<div class="match-badge">' +
-"Face match" +
-'</div>';
-
-matchResults.appendChild(card);
-
-});
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-finderMessage,
-"Face matching मध्ये समस्या आली. पुन्हा प्रयत्न करा."
-);
-
-}finally{
-
-findButton.disabled = false;
-findButton.textContent = "Find My Photos";
-
-}
-
-}
-
-
-async function checkLogin(){
-
-const {data} =
-await supabaseClient.auth.getSession();
-
-if(data.session){
-showPhotographerPanel();
-}
-
-}
-
-
-supabaseClient.auth.onAuthStateChange(
-(event,session) => {
-
-if(session){
-
-showPhotographerPanel();
-
-}else{
-
-photographerPanel.classList.add("hidden");
-loginSection.classList.remove("hidden");
-
-}
-
-}
-);
-
+/* ==============================
+   START
+================================ */
 
 checkLogin();
-loadGallery();
 
 </script>
 
