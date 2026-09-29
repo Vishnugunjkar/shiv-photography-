@@ -219,7 +219,8 @@ footer{
         तुमचा selfie upload करा आणि तुमचे photos शोधा.
     </p>
 
-    <button class="btn btn-gold" onclick="document.getElementById('selfieSection').scrollIntoView({behavior:'smooth'})">
+    <button class="btn btn-gold"
+        onclick="document.getElementById('selfieSection').scrollIntoView({behavior:'smooth'})">
         Find My Photos
     </button>
 
@@ -899,6 +900,96 @@ async function imageFromUrl(url){
 
 
 /* ==============================
+   DOWNLOAD MATCHING PHOTO
+================================ */
+
+async function downloadPhoto(encodedName){
+
+    const fileName =
+    decodeURIComponent(encodedName);
+
+
+    try{
+
+        matchStatus.classList.remove("hidden");
+
+        matchStatus.innerText =
+        "Photo downloading...";
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .storage
+        .from("event-photos")
+        .download(
+            fileName
+        );
+
+
+        if(error){
+
+            throw error;
+        }
+
+
+        const blobUrl =
+        URL.createObjectURL(data);
+
+
+        const link =
+        document.createElement("a");
+
+
+        link.href =
+        blobUrl;
+
+
+        link.download =
+        fileName;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+            () => URL.revokeObjectURL(blobUrl),
+            1000
+        );
+
+
+        matchStatus.innerText =
+        "Photo downloaded successfully!";
+
+
+    }catch(error){
+
+        console.error(
+            "Download error:",
+            error
+        );
+
+
+        matchStatus.innerText =
+        "Photo download failed: " +
+        error.message;
+
+    }
+
+}
+
+
+/* ==============================
    FIND MY PHOTOS
 ================================ */
 
@@ -1080,6 +1171,7 @@ async function findMyPhotos(){
             const card =
             document.createElement("div");
 
+
             card.className =
             "photo-card";
 
@@ -1105,6 +1197,13 @@ async function findMyPhotos(){
                     >
                         View Photo
                     </a>
+
+                    <button
+                        class="btn btn-dark"
+                        onclick="downloadPhoto('${encodeURIComponent(match.file.name)}')"
+                    >
+                        Download Photo
+                    </button>
 
                 </div>
             `;
